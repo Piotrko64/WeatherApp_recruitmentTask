@@ -4,6 +4,15 @@ const weatherInfoDiv = document.querySelector(".weatherInformations");
 const checkingCityDiv = document.querySelector(".checkingCity");
 const lastWeatherDataDiv = document.querySelector(".lastWeatherData");
 
+function addValidData(data) {
+    if (data.temperatura && data.data_pomiaru && data.suma_opadu && data.cisnienie) {
+        weatherInfoDiv.innerHTML = createOneLineWeatherData(data);
+        checkingCityDiv.textContent = `Aktualna pogoda dla miasta: ${data.stacja}`;
+    } else {
+        weatherInfoDiv.textContent = "Coś poszło nie tak z pobraniem danych";
+    }
+}
+
 function createOneLineWeatherData(data) {
     return `<div class="oneLineData">
         <div><h4> Temperatura </h4>${data.temperatura} °C</div>
@@ -11,16 +20,6 @@ function createOneLineWeatherData(data) {
         <div><h4> Suma opadów </h4>${data.suma_opadu}</div>
         <div><h4> Data pomiaru </h4>${data.data_pomiaru}</div>
         </div>`;
-}
-
-function addValidData(data) {
-    if (data.temperatura && data.data_pomiaru && data.suma_opadu && data.cisnienie) {
-        weatherInfoDiv.innerHTML = createOneLineWeatherData(data);
-
-        checkingCityDiv.textContent = `Sprawdzane miasto: ${data.stacja}`;
-    } else {
-        weatherInfoDiv.textContent = "Coś poszło nie tak z pobraniem danych";
-    }
 }
 
 function addToLocalStorage(weatherData) {
@@ -43,10 +42,12 @@ function showActualWeatherData(event) {
 
     fetch(`https://danepubliczne.imgw.pl/api/data/synop/station/${selectInput.value}`)
         .then((data) => data.json())
-        .catch(() => (weatherInfoDiv.textContent = "UPS! Coś poszło nie tak!"))
+        .catch((err) => {
+            weatherInfoDiv.textContent = "UPS! Coś poszło nie tak!";
+            console.error(err);
+        })
         .then((data) => {
             addValidData(data);
-
             addToLocalStorage(data);
         });
 }
