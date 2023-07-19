@@ -1,4 +1,5 @@
- # <div align="center"> WeatherApp_recruitmentTask </div>
+# <div align="center"> WeatherApp - aplikacja pogodowa </div>
+
 </br>
 <img src="https://github.com/Piotrko64/WeatherApp_recruitmentTask/assets/77500425/bb539636-ed58-4d86-82db-042933036efb" align="center"  />
 </br>

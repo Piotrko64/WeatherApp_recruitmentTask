@@ -65,6 +65,12 @@ button[type="submit"]:hover {
     background-color: rgb(214, 153, 21);
 }
 
+footer {
+    background-color: rgb(25, 22, 48);
+    text-align: center;
+    padding: 30px 10px;
+}
+
 .container {
     max-width: 1200px;
     margin: 10px auto 40px;
