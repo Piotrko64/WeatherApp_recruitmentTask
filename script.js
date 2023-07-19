@@ -6,8 +6,8 @@ const lastWeatherDataDiv = document.querySelector(".lastWeatherData");
 
 function addValidData(data) {
     if (data.temperatura && data.data_pomiaru && data.suma_opadu && data.cisnienie) {
-        weatherInfoDiv.innerHTML = createOneLineWeatherData(data);
         checkingCityDiv.textContent = `Aktualna pogoda dla miasta: ${data.stacja}`;
+        weatherInfoDiv.innerHTML = createOneLineWeatherData(data);
 
         addToLocalStorage(data);
     } else {
@@ -27,7 +27,7 @@ function createOneLineWeatherData(data) {
 
 function addToLocalStorage(weatherData) {
     const actualData = JSON.parse(localStorage.getItem("weatherStorage")) || [];
-    const newWeatherStorage = JSON.stringify([...actualData, weatherData]);
+    const newWeatherStorage = JSON.stringify([weatherData, ...actualData]);
 
     localStorage.setItem("weatherStorage", newWeatherStorage);
 }
@@ -61,7 +61,7 @@ form.addEventListener("submit", showActualWeatherData);
 if (localStorage.getItem("weatherStorage")) {
     let everyResultsInLocalStorage = "";
 
-    [...JSON.parse(localStorage.getItem("weatherStorage"))].reverse().forEach((info) => {
+    [...JSON.parse(localStorage.getItem("weatherStorage"))].forEach((info) => {
         everyResultsInLocalStorage += `<h3> ${info.stacja} </h3> ${createOneLineWeatherData(info)} `;
     });
 
