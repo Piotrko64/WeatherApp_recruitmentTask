@@ -33,7 +33,7 @@ function addToLocalStorage(weatherData) {
 }
 
 function showActualWeatherData(event) {
-    event.preventDefault(event);
+    event.preventDefault();
 
     const valueSelect = selectInput.value;
 
